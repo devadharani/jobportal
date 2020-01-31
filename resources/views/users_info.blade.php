@@ -1,14 +1,16 @@
 
 @extends('layouts.app')
 @section('content')
+
     <div class="row">
         <div class="container">
             <h2><b>Profile:</b></h2>
-                <ul style="list-style-type: none">
-                   <li style="float:right;"> &nbsp; &nbsp;<a class="btn btn-primary" href="{{route('user.edit',$user->encode_id)}}">Edit</a></li>
-                   <li style="float:right;"> <a class="btn btn-primary"  href="{{url('posted_jobs')}}">Apply for jobs</a> </li>
-        </ul>
-        </div>
+            <ul style="list-style-type: none">
+                <li style="float:right;"> &nbsp; &nbsp;<a class="btn btn-primary" href="{{url('users')}}">Back</a></li>
+                <li style="float:right;"> &nbsp; &nbsp;<a class="btn btn-primary" href="{{route('admin.edit',$user->encode_id)}}">Edit</a></li>
+                <li style="float:right;"> <a class="btn btn-primary"  href="{{url('users_applied_jobs',$user->encode_id)}}">Applied Jobs</a> </li>
+            </ul>
+            </div>
     </div>
     <br>
     <div class="row">
@@ -24,7 +26,7 @@
                 </tr>
             </table>
             <h3><b>Address:</b></h3>
-                 <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover">
                 <tr>
                     <td style="width:500px;">Addressline1</td>
                     <td> {{$user->addressline1}}</td>
@@ -33,29 +35,29 @@
                     <td>Addressline2</td>
                     <td> {{$user->addressline2}}</td>
                 </tr>
-                     <tr>
-                         <td>City</td>
-                         <td> {{$user->city}}</td>
-                     </tr>
-                     <tr>
-                         <td>State</td>
-                         <td> {{$user->state}}</td>
-                     </tr>
-                     <tr>
-                         <td>Country</td>
-                         <td> {{$user->country}}</td>
-                     </tr>
-                     <tr>
-                         <td>Zip</td>
-                         <td> {{$user->zip}}</td>
-                     </tr>
-                     <tr>
-                         <td >Mobile_no:</td>
-                         <td> {{$user->mobile_no}}</td>
-                     </tr>
+                <tr>
+                    <td>City</td>
+                    <td> {{$user->city}}</td>
+                </tr>
+                <tr>
+                    <td>State</td>
+                    <td> {{$user->state}}</td>
+                </tr>
+                <tr>
+                    <td>Country</td>
+                    <td> {{$user->country}}</td>
+                </tr>
+                <tr>
+                    <td>Zip</td>
+                    <td> {{$user->zip}}</td>
+                </tr>
+                <tr>
+                    <td >Mobile_no:</td>
+                    <td> {{$user->mobile_no}}</td>
+                </tr>
             </table>
             <table class="table table-bordered table-hover">
-                     <h3><b>Education Details</b></h3>
+                <h3><b>Education Details</b></h3>
                 <tr>
                     <td class="table-dark" style="width:500px;">SSLC-School Name</td>
                     <td>{{$education->sslc_school}}</td>

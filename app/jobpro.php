@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class jobpro extends Model
 {
-    protected $appends=['encoded_id'];
+    protected $appends=['encoded_id','enc_id'];
     protected $table='jobs';
    public $timestamps=false;
    protected $fillable=['job_title','location','qualification','passedout_year','skills','last_date','posted_date',
@@ -15,7 +15,10 @@ class jobpro extends Model
    {
        return base64_encode($this->id);
    }
-
+    public function getEncIdAttribute()
+    {
+        return base64_encode($this->user_id);
+    }
    public function getappliedusers()
    {
           return $this->hasMany('App\applied','job_id','id');

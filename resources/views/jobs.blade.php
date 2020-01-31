@@ -1,6 +1,11 @@
 @extends('layouts.app')
-@include('helper')
 @section('content')
+    <div class="row">
+        <div class="container">
+            <a href="{{url('home')}}" class="btn btn-primary" style="float:right;">Back</a>
+        </div>
+    </div>
+    <br>
     <div class="row">
     <div class="container">
         @foreach($row as $providers)

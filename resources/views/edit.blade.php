@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <h2><b>Complete Your Profile</b></h2>
-    <form method="POST" action="{{route('user.update',['id'=>$id])}}">
+    <form method="POST" action="{{route('user.update',$user->encode_id)}}">
         @csrf
         @method('PUT')
         <div class="card">
@@ -212,7 +212,9 @@
             </div>
         </div>
         <br>
+
         <input type="submit" class="btn btn-primary" style="margin-left:900px;" value="submit">
+        <a href="{{url('home')}}" class="btn btn-primary" style="">Cancel</a>
     </form>
 </div>
 @endsection

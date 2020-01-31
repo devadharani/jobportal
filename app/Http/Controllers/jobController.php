@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\jobpro;
+use App\message;
 use App\education;
 use App\applied;
 use App\User;
@@ -11,6 +12,11 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 class jobController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except('welcome');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -133,12 +139,27 @@ class jobController extends Controller
         $decoded_id=base64_decode($id);
         $providers=jobpro::where('id',$decoded_id)->first();
         $appliers=jobpro::find($decoded_id)->getappliedusers()->get();
-        $user_data=[];
-        foreach($appliers as $applied){
-            $user_data['data']=$applied->getuser()->first();
-            $edu[]=$user_data;
-        }
+            $user_data = [];
+            $edu=[];
+            foreach ($appliers as $applied) {
+                $user_data['data'] = $applied->getuser()->first();
+                $user_data['appliers'] = $applied;
+                $edu[] = $user_data;
+            }
         return view('full_details_employers',compact('edu','providers'));
     }
-
+    public function message(Request $request,$id)
+    {
+        $decoded_id=base64_decode($id);
+        $mes=applied::where('job_id',$decoded_id)->get();
+        if($mes!="") {
+            foreach ($mes as $value) {
+                if ($value->user_id == $request->user_id) {
+                    $value->message = $request->message;
+                    $value->save();
+                }
+            }
+        }
+        return redirect()->back();
+    }
 }

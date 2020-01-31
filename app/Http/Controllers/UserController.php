@@ -72,10 +72,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $decoded_id = $this->decode($id);
+        $decoded_id = base64_decode($id);
         $user = User::where('id', $decoded_id)->first();
         $education = education::where('user_id', $decoded_id)->first();
-        return view('edit', compact('user', 'education', 'id'));
+        return view('edit', compact('user', 'education'));
     }
 
     /**
@@ -85,15 +85,14 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $encoded_id)
+    public function update(Request $request, $id)
     {
-        $decoded_id = $this->decode($encoded_id);
+        $decoded_id = base64_decode($id);
         $user = User::where('id',$decoded_id)->first();
         $user->update($request->all());
         $education = education::where('user_id', $decoded_id)->first();
-        $request = Arr::add($request, 'user_id', $decoded_id);
         $education->update($request->all());
-        return view('profile', compact('user', 'education', 'encoded_id'));
+        return view('profile', compact('user', 'education'));
     }
 
     /**
@@ -147,7 +146,7 @@ class UserController extends Controller
         $request = Arr::add($request, 'user_id', $id);
         $data = $request->all();
         $education = education::create($data);
-        return view('profile', compact(['user', 'education', 'encoded_id']));
+        return view('profile', compact(['user', 'education']));
     }
     public function posted_jobs()
     {

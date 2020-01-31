@@ -6,15 +6,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Scripts -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
 
-        <!-- Fonts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+        <!-- Fonts -->
+
     </head>
         <style>
 
@@ -68,11 +73,10 @@
             @endif
                 <div class="row">
                     <div class="container">
+                        <div class="card">
+                            <div class="card-body">
                         @foreach($row as $providers)
-                            <div class="card">
-                                <div class="card-body">
-                                    <p><b>Job {{$providers->id}}</b></p>
-
+                            @if($providers->delete_status!=1)
                                         <a  class="btn btn-primary" style="float:right;" href="{{url('new_user_login')}}">Apply Now</a>
                                     <b style="font-size:25px; color:darkred;">{{$providers->job_title}}</b><br>
                                     <b  style="font-size:20px; color:crimson;">{{$providers->company_name}}</b><br>
@@ -80,10 +84,12 @@
                                     <b>Location:{{$providers->location}}</b><br>
                                     <b>{{$providers->qualification}}</b><br>
                                     <b>{{$providers->skills}}   <a style="font-size:20px;" href="{{url('new_user_login')}}">view details</a> </b><br>
-                                </div>
-                            </div>
                             <div style="height:10px;"></div>
+                                <hr>
+                        @endif
                         @endforeach
+                            </div>
+                        </div>
                     </div>
                 </div>
     </body>

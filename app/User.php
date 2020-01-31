@@ -39,12 +39,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
     public function getappliedjobs()
     {
         return $this->hasMany('App\applied','user_id','id');
     }
     public function geteducationdetails()
+
     {
         return $this->hasOne('App\education','user_id','id');
     }

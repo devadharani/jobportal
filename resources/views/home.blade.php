@@ -2,7 +2,16 @@
 @extends('layouts.app')
 @section('content')
   @if($user->user_type==1)
-      Welcome Admin
+      <div class="row">
+      <div class="container">
+      <div class="card" style="width:500px;">
+          <div class="card-body">
+         <a href="{{url('employers')}}" class="btn btn-primary">Employers</a>
+         <a href="{{url('users')}}" class="btn btn-primary">Users</a>
+          </div>
+      </div>
+      </div>
+      </div>
 
                               @elseif($user->user_type==3)
       <div class="container">

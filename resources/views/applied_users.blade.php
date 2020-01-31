@@ -2,7 +2,7 @@
 @section('content')
     <div class="row">
         <div class="container">
-            <a href="" style="float:right" class="btn btn-primary">Message</a>
+            <a style="float:right;" href="{{url('/home')}}" class="btn btn-primary">back</a>
         </div>
     </div>
     <br>
