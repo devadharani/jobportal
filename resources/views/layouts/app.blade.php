@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -12,15 +11,60 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
-
-
+    <script src="http://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>
+    <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
+    <script src="{{asset('js/chart.js/Chart.min.js')}}"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <!-- Styles -->
+<style>
+    .body-bg{
+        background-color:#D5D8DC;
+    }
 
+     .animation {
+         animation-duration: 3s;
+         animation-name: slidein;
+     }
 
+    @keyframes slidein {
+        from {
+            margin-left: 100%;
+            width: 300%;
+        }
 
+        to {
+            margin-left: 0%;
+            width: 100%;
+        }
+    }
+    .grad{
+        background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    }
+
+    .background_image{
+        background-image: url({{ asset('img/images.jpg') }});
+        background-repeat: no-repeat;
+        background-size:100% 100%;
+
+    }
+    .background_image_job{
+        background-image: url({{ asset('img/blue.jpg') }});
+        background-size:100% 100%;
+    }
+    .background_img{
+        background-image: url({{ asset('img/job.jpg') }});
+        background-size:100% 100%;
+    }
+
+     canvas {
+         -moz-user-select: none;
+         -webkit-user-select: none;
+         -ms-user-select: none;
+     }
+
+</style>
 </head>
 <body>
     <div id="app">
@@ -54,6 +98,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
@@ -80,4 +125,5 @@
         </main>
     </div>
 </body>
+
 </html>

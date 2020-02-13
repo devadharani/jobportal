@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
+<body class="animation bg-light background_image_job">
     <div class="container">
         <h2><b>Edit Profile</b></h2>
         <form method="POST" action="{{route('admin.update',$user->encode_id)}}">
@@ -217,4 +218,5 @@
             <a href="{{url('users_info',$user->encode_id)}}" class="btn btn-primary">Cancel</a>
         </form>
     </div>
+</body>
 @endsection

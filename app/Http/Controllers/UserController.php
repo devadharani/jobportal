@@ -19,6 +19,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
 
@@ -41,6 +46,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         $user = User::create([
             'name' => ucfirst($request['first_name']) . " " . $request['last_name'],
             'email' => $request['email'],
@@ -50,7 +56,7 @@ class UserController extends Controller
         $id = $this->encode($user->id);
         $name = $user->name;
         $this->sendWaitlistMails($request['email'], 'link to login', 'Mails.register', $id, $name);
-        return redirect()->back()->withSuccess('Registered Successfully.Mail sent to your MailId');
+        return redirect()->route('login')->with('message','Registered Successfully.Mail sent to your MailId');
     }
 
     /**
@@ -61,7 +67,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $decoded_id=base64_decode($id);
+        $row=jobpro::where('user_id',Auth::id())->get();
+        return view('posted_jobs',compact('row'));
     }
 
     /**
@@ -103,7 +111,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $decoded_id=base64_decode($id);
+        $job=jobpro::where('id',$decoded_id)->first();
+        $job->delete_status=1;
+        $job->save();
+        return redirect()->route('user.show',['id' => $id ])->with('message','Deleted Successfully');
     }
 
     public function login($id)
@@ -158,18 +170,23 @@ class UserController extends Controller
     public function full_job_details_users($id)
     {
         $providers=jobpro::where('id',base64_decode($id))->first();
-        return view('full_detail',compact('providers'));
+        if(Auth::user()) {
+            $applied_jobs = Auth::user()->getappliedjobs()->get();
+            $applied_lists = array_column($applied_jobs->toArray(), "job_id");
+        }
+        return view('full_detail',compact('providers','applied_lists'));
     }
     public function apply($id)
     {
         $user=Auth::user();
-        $encoded_id=$this->encode($user->id);
-        $providers=jobpro::where('id',$id)->first();
-        return view('apply',compact('user','encoded_id','providers'));
+        $decoded_id=base64_decode($id);
+        //$encoded_id=$this->encode($user->id);
+        $providers=jobpro::where('id',$decoded_id)->first();
+        return view('apply',compact('user','providers'));
     }
     public function form_data(Request $request,$id)
     {
-        $decoded_id=$this->decode($id);
+        $decoded_id=base64_decode($id);
         $request=Arr::add($request,'user_id',$decoded_id);
          applied::create($request->all());
         $row=jobpro::all();

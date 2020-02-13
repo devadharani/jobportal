@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 use App\education;
 use App\jobpro;
+use App\payment;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\applied;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('paypalComplete');
     }
     /**
      * Display a listing of the resource.
@@ -184,6 +187,28 @@ class AdminController extends Controller
         $job=jobpro::where('id',$decoded_id)->first();
         $job->delete_status=1;
         $job->save();
-        return redirect()->back()->with('message','Deleted Successfully');
+        return redirect()->route('post_jobs',['id' => $id ])->with('message','Deleted Successfully');
+    }
+    public function paypalComplete(Request $request)
+    {
+         $file=fopen(public_path().date("Y-m-d")."payment.txt","a+");
+         fwrite($file,json_encode($request->all()));
+         fclose($file);
+         $payments=payment::where('user_id',Auth::id())->first();
+         if($payments!=null)
+         {
+             $payments->orderID=$request['orderID']['orderID'];
+             $payments->payerID=$request['orderID']['payerID'];
+             $payments->extra_jobs=4;
+             $payments->save();
+         }
+         else {
+             $payment = new payment();
+             $payment->user_id = Auth::id();
+             $payment->orderID = $request['orderID']['orderID'];
+             $payment->payerID = $request['orderID']['payerID'];
+             $payment->extra_jobs = 4;
+             $payment->save();
+         }
     }
 }

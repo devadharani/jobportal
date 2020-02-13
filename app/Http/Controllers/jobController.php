@@ -7,6 +7,7 @@ use App\message;
 use App\education;
 use App\applied;
 use App\User;
+use App\payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -54,9 +55,9 @@ class jobController extends Controller
      * @param  \App\jobpro  $jobprovider
      * @return \Illuminate\Http\Response
      */
-    public function show(jobpro $jobprovider)
+    public function show(jobpro $provider)
     {
-        //
+
     }
 
     /**
@@ -81,7 +82,6 @@ class jobController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -90,7 +90,8 @@ class jobController extends Controller
      */
     public function destroy(jobpro $jobprovider)
     {
-        //
+
+
     }
 
     public function provider_profile(Request $request)
@@ -107,11 +108,19 @@ class jobController extends Controller
         $encoded_id=(new UserController)->encode($providers->id);
         return view('post_jobs',compact('providers','encoded_id'));
     }
+
     public function post_jobs(Request $request,$id)
     {
         $decoded_id=(new UserController)->decode($id);
         $provider=jobpro::where('id',$decoded_id)->first();
         $provider->update($request->all());
+        $payment=payment::where('user_id',Auth::id())->first();
+        $paymentJobs=$payment->extra_jobs;
+        if($payment!=null and $payment->extra_jobs!=0)
+        {
+            $payment->extra_jobs=--$paymentJobs;
+            $payment->save();
+        }
         $row=jobpro::where('user_id',Auth::id())->get();
        return view('posted_jobs',compact('row'));
     }
@@ -124,16 +133,45 @@ class jobController extends Controller
         return view('applied_users',compact('user','education'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
     public function add_jobs()
     {
         $user=Auth::user();
+        $users_id=$user->id;
+        $postedJobs=jobpro::where('user_id',$users_id)->where('delete_status',null)->get()->count();
+        $payment=payment::Where('user_id',Auth::id())->first();
+
+        if($payment!= null) {
+            if ($payment->extra_jobs == 4 ) {
+                return view('add_jobs', compact('user'));
+            }
+            elseif($payment->extra_jobs == 0)
+            {
+                return view('paypal');
+            }
+        }
+
+        else {
+            if ($postedJobs >= 4) {
+                return view('paypal');
+            }
+        }
         return view('add_jobs',compact('user'));
     }
+
     public function welcome()
     {
         $row=jobpro::all();
-        return view('welcome',compact('row'));
+        if(Auth::user()) {
+            $applied_jobs = Auth::user()->getappliedjobs()->get();
+            $applied_lists = array_column($applied_jobs->toArray(), "job_id");
+        }
+        return view('welcome',compact('row','applied_lists'));
     }
+
     public function full_job_details_employers($id)
     {
         $decoded_id=base64_decode($id);
@@ -148,6 +186,7 @@ class jobController extends Controller
             }
         return view('full_details_employers',compact('edu','providers'));
     }
+
     public function message(Request $request,$id)
     {
         $decoded_id=base64_decode($id);

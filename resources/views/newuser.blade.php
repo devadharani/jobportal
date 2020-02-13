@@ -1,4 +1,7 @@
+@extends('layouts.app')
+@section('content')
 
+<body class="animation bg-light background_image_job">
 <div class="container">
     <h2><b>Complete Your Profile</b></h2>
     <form method="POST" action="{{url('complete_profile')}}">
@@ -214,3 +217,5 @@
         <input type="submit" class="btn btn-primary" style="margin-left:900px;" value="submit">
     </form>
 </div>
+</body>
+@endsection

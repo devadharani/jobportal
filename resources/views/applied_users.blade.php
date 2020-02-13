@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+
+    <body class="animation bg-light background_image_job">
     <div class="row">
         <div class="container">
             <a style="float:right;" href="{{url('/home')}}" class="btn btn-primary">back</a>
@@ -8,7 +10,7 @@
     <br>
     <div class="row">
         <div class="container">
-            <table class="table table-bordered table-hover">
+            <table class="table table-hover">
                 <tr>
                     <td style="width:500px;">Name:</td>
                     <td>{{$user->name}}</td>
@@ -19,7 +21,7 @@
                 </tr>
             </table>
             <h3><b>Address:</b></h3>
-            <table class="table table-bordered table-hover">
+            <table class="table  table-hover">
                 <tr>
                     <td style="width:500px;">Addressline1</td>
                     <td> {{$user->addressline1}}</td>
@@ -49,10 +51,10 @@
                     <td> {{$user->mobile_no}}</td>
                 </tr>
             </table>
-            <table class="table table-bordered table-hover">
+            <table class="table  table-hover">
                 <h3><b>Education Details</b></h3>
                 <tr>
-                    <td class="table-dark" style="width:500px;">SSLC-School Name</td>
+                    <td class="" style="width:500px;"><b>SSLC-School</b></td>
                     <td>{{$education->sslc_school}}</td>
                 </tr>
                 <tr>
@@ -68,7 +70,7 @@
                     <td>{{$education->sslc_year}}</td>
                 </tr>
                 <tr>
-                    <td class="table-dark">HSC-School Name</td>
+                    <td class=""><b>HSC-School</b></td>
                     <td>{{$education->hsc_school}}</td>
                 </tr>
                 <tr>
@@ -83,7 +85,7 @@
                     <td>Year</td>
                     <td>{{$education->hsc_year}}</td>
                 <tr>
-                    <td class="table-dark">UG-College Name</td>
+                    <td class="">UG-College</td>
                     <td>{{$education->ug_college}}</td>
                 </tr>
                 <tr>
@@ -98,7 +100,7 @@
                     <td>Year</td>
                     <td>{{$education->ug_year}}</td>
                 <tr>
-                    <td class="table-dark">PG-College Name</td>
+                    <td class=""><b>PG-College</b></td>
                     <td>{{$education->pg_college}}</td>
                 </tr>
                 <tr>
@@ -115,7 +117,7 @@
 
                 </tr>
             </table>
-            <table class="table table-bordered table-hover">
+            <table class="table table-hover">
                 <tr>
                     <td style="width:500px;">Skills</td>
                     <td>{{$user->skills}}</td>
@@ -127,5 +129,5 @@
             </table>
         </div>
     </div>
-
+    </body>
 @endsection

@@ -19,13 +19,13 @@ Route::resource('user', 'UserController');
 Route::post('complete_profile','UserController@complete_profile');
 Route::post('provider_profile','jobController@provider_profile');
 Route::resource('provider','jobController');
-Route::post('post_jobs/{id}','jobController@post_jobs');
+Route::post('post_jobs/{id}','jobController@post_jobs')->name('post_jobs');
 Route::get('posted_jobs','UserController@posted_jobs');
 Route::get('full_job_details_users/{id}','UserController@full_job_details_users');
 Route::get('apply/{id}','UserController@apply');
 Route::get('applied_users/{id}','jobController@applied_users');
 Route::post('form_data/{id}','UserController@form_data');
-Route::get('add_jobs','jobController@add_jobs');
+Route::get('add_jobs','jobController@add_jobs')->name('addJobs');
 Route::get('new_user_login','UserController@new_user_login');
 Route::get('full_job_details_employers/{id}','jobController@full_job_details_employers')->name('full_job_details_employers');
 Route::post('message/{id}','jobController@message');
@@ -38,6 +38,12 @@ Route::get('users_full_job_details/{id}','AdminController@users_full_job_details
 Route::get('jobs_edit/{id}','AdminController@jobs_edit');
 Route::post('jobs_update/{id}','AdminController@jobs_update');
 Route::post('delete_job/{id}','AdminController@delete_job');
+Route::get('new_user_register','AdminController@new_user_register');
+Route::view('paypal','paypal');
+Route::post('transaction_complete','AdminController@paypalComplete');
+Route::view('try','paypaltry');
+
+
 
 
 

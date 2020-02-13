@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @section('content')
+
+    <body class="animation bg-light background_image_job">
     <div class="container">
         <h2><b>Fill the Details</b></h2>
-        <form method="POST" action="{{url('form_data',['id'=>$encoded_id])}}" id="applied_form" name="applied_form">
+        <form method="POST" action="{{url('form_data',$user->encode_id)}}" id="applied_form" name="applied_form">
             @csrf
             <div class="card">
                 <div class="card-header">{{ __('Personal Info') }}</div>
@@ -71,10 +73,12 @@
                     <div class="form-group row mb-0" >
                         <div class="col-md-6 offset-md-4" >
                             <input type="submit" name="submit" class="btn btn-primary" value="submit">
+                            <a href="{{url('posted_jobs')}}" class="btn btn-primary">Cancel</a>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
+    </body>
     @endsection

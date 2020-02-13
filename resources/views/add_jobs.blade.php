@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
+
+    <body class="animation bg-light background_image_job">
     <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card" style="border-radius:20px 50px;">
                 <div class="card-header">{{ __('Complete the details') }}</div>
                 <div class="card-body">
                     <form method="POST" action="{{ url('provider_profile') }}">
@@ -37,4 +39,5 @@
         </div>
     </div>
 </div>
+    </body>
     @endsection

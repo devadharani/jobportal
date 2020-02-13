@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+
+    <body class="animation bg-light background_image_job">
     <div class="row">
     <div class="container">
         <a href="{{url('users')}}" style="float:right;" class="btn btn-primary">Back</a>
@@ -66,7 +68,7 @@
             </table>
         </div>
     </div>
-
+    </body>
 @endsection
 
 

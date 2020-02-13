@@ -5,10 +5,18 @@
         {{ session()->get('message') }}
     </div>
 @endif
+
+<br>
+<body class="animation bg-light background_image_job">
+<div class="row">
+    <div class="container">
+        <a style="float:right;" href="{{url('/home')}}" class="btn btn-primary">back</a>
+    </div>
+</div>
 <br>
 <div class="row">
     <div class="container">
-    <div class="card">
+    <div class="card" style="border-radius:20px 50px;">
                 <div class="card-header">
                     <h4>Users</h4>
                 </div>
@@ -34,9 +42,9 @@
     <br>
     <div class="row">
         <div class="container">
-            <div class="card">
+            <div class="card" style="border-radius:20px 50px;">
                 <div class="card-header">
-                    <h4>Employers</h4>
+                    <h4>New Users</h4>
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless">
@@ -75,7 +83,7 @@
             </div>
         </div>
     </form>
-
+</body>
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)

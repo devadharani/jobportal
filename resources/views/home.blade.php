@@ -1,19 +1,14 @@
 
 @extends('layouts.app')
 @section('content')
-  @if($user->user_type==1)
-      <div class="row">
-      <div class="container">
-      <div class="card" style="width:500px;">
-          <div class="card-body">
-         <a href="{{url('employers')}}" class="btn btn-primary">Employers</a>
-         <a href="{{url('users')}}" class="btn btn-primary">Users</a>
-          </div>
-      </div>
-      </div>
-      </div>
-
-                              @elseif($user->user_type==3)
+    <style>
+    .background_img{
+    background-image: url({{ asset('img/job.jpg') }});
+    background-size:800px 900px;
+    }
+</style>
+    <body class="animation bg-light background_img">
+  @if($user->user_type==3)
       <div class="container">
           <h2><b>Complete Your Profile</b></h2>
           <form method="POST" action="{{url('complete_profile')}}">
@@ -229,6 +224,6 @@
               <input type="submit" class="btn btn-primary" style="margin-left:900px;" value="submit">
           </form>
       </div>
-
+    </body>
 @endif
 @endsection

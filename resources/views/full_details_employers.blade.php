@@ -1,14 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    @if(session()->has('message'))
-        <div class="alert alert-success">
-            {{ session()->get('message') }}
-        </div>
-    @endif
+
+    <body class="animation bg-light background_image_job">
     <div class="row">
         <div class="container">
             <ul style="list-style-type: none">
-                <li style="float:right" > &nbsp;&nbsp;<a class="btn btn-primary" href="{{route('admin.show',$providers->enc_id)}}">back</a> </li>
+                <li style="float:right" > &nbsp;&nbsp;<a class="btn btn-primary" href="{{url('home')}}">back</a> </li>
                 <li style="float:right" > <a class="btn btn-primary" href="{{url('jobs_edit',$providers->encoded_id)}}">edit</a></li>
             </ul>
         </div>
@@ -162,7 +159,7 @@
     </div>
 
 
-
+</body>
     <script>
         $('#exampleModal').on('show.bs.modal', function (event) {
             $('#edit_form').hide();
@@ -193,6 +190,7 @@
                 modal.find('.modal-title').text(recipient+' '+'about'+' '+username)
                 $('#name').val(username);
                 $('#user_id').val(user_id);
+                $('#message-text').text(message);
             }
 
 
